@@ -11,10 +11,6 @@ def login():
         import main1
 
 
-
-
-
-
     else:
         messagebox.showerror('ERROR', 'Please Show Correct Credentials')
         
