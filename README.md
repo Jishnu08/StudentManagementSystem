@@ -1,15 +1,19 @@
 # StudentManagementSystem
 INTRODUCTION:
 
-Student Management System is made using python with tkinter gui and Database used is mysql. This management system consists of the Superadmin login,admin login, faculty login, student login. This can make the work of the college more simple.
+Student Management System is made using python with tkinter gui and Database used is mysql. This management system consists of the Add Student,Search Student, Delete Student, Update Student, Show Student, Export Data. This can make the work of the college more simple.
 
 <!-- Topics mysql python sql database project python3 mysql-database student-management student-project python-development mysql-connector tkinter-gui -->
 
 MODULE USED:
 (1)--> Tkinter
+<br>
 (2)--> Time 
+<br>
 (3)--> ttkThmes
+<br>
 (4)--> PIL
+<br>
 (5)--> pymySQL
 
 
