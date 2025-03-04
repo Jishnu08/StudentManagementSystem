@@ -8,7 +8,7 @@ def login():
     elif username_entry.get()=='jishnu' and pswd_entry.get()=='2003':
         messagebox.showinfo('Success','Welcome to the System')
         window.destroy()
-        import main
+        import main1
 
 
 
