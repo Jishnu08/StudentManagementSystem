@@ -15,6 +15,8 @@ MODULE USED:
 (4)--> PIL
 <br>
 (5)--> pymySQL
+<br>
+(6)--> pandas
 
 
 WORKING:
