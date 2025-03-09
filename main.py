@@ -205,7 +205,39 @@ def add_student():
 
 
 
+#SEARCH BUTTON FUNCTIONALITY
+def search_student():
+    def search_data():
+        query = 'select * from student where id=%s or name=%s' 
+        mycursor.execute(query,(idEntry.get(),nameEntry.get()))
+        main_table.delete(*main_table.get_children())
+        fetched_data=mycursor.fetchall()
+        for data in fetched_data:
+            main_table.insert('',END,values=data)
 
+
+
+    search_window =Toplevel()
+    search_window.title('Search Student')
+    search_window.grab_set()
+    search_window.resizable(0,0)
+
+    #ID 
+    idlabel=Label(search_window,text='ID',font=('times new roman',20,'bold'))
+    idlabel.grid(row= 0,column=0,padx=30,pady=15,stick=W)
+    idEntry=Entry(search_window,font=('roman',15,'bold'),width=24)
+    idEntry.grid(row=0,column=1,padx=10,pady=15)
+
+    #Name
+    namelabel=Label(search_window,text='NAME',font=('times new roman',20,'bold'))
+    namelabel.grid(row= 1,column=0,padx=30,pady=15,stick=W)
+    nameEntry=Entry(search_window,font=('roman',15,'bold'),width=24)
+    nameEntry.grid(row=1,column=1,padx=10,pady=15)
+
+    search_student_Button=ttk.Button(search_window,text='SEARCH',width=30,command=search_data)
+    search_student_Button.grid(row=9,columnspan=2,pady=15)
+
+    
 
 
 
@@ -265,7 +297,7 @@ logo_Label.grid(row=0,column=0)
 addstudentButton = ttk.Button(leftFrame,text='Add Student', width=20,state=DISABLED,command=add_student ) 
 addstudentButton.grid(row=1,column=0,pady=20 )
 #Search Student
-searchstudentButton = ttk.Button(leftFrame,text='Search Student', width=20,state=DISABLED)
+searchstudentButton = ttk.Button(leftFrame,text='Search Student', width=20,state=DISABLED,command=search_student)
 searchstudentButton.grid(row=2,column=0,pady=20 )
 #Delete Student
 delstudentButton = ttk.Button(leftFrame,text='Delete Student', width=20,state=DISABLED)
