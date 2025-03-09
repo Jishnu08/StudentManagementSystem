@@ -48,7 +48,7 @@ def connect_database():
             mycursor.execute(Query)
             Query='use studentmanagementsystem'
             mycursor.execute(Query)
-            Query='create table student(name varchar(30),id int not null primary key, mobile varchar(10),email varchar(30),address varchar(100),gender varchar(20),dob varchar(20),admission_year varchar(10), passing_year year)'
+            Query='create table student(id int not null primary key,name varchar(30),mobile varchar(10),email varchar(30),address varchar(100),gender varchar(20),dob varchar(20),admission_year varchar(10), passing_year year)'
             mycursor.execute(Query)
         
         except:
@@ -103,26 +103,40 @@ def connect_database():
 
 def add_student():
     def add_data():
-        if nameEntry.get()=='' or idEntry.get()=='' or phoneEntry.get()=='' or emailEntry.get()=='' or addressEntry.get()=='' or genderEntry.get()=='' or DOBEntry.get()=='' or ad_yearEntry.get()=='' or pass_yearEntry.get=='':
+        if idEntry.get()=='' or nameEntry.get()=='' or phoneEntry.get()=='' or emailEntry.get()=='' or addressEntry.get()=='' or genderEntry.get()=='' or DOBEntry.get()=='' or ad_yearEntry.get()=='' or pass_yearEntry.get=='':
             messagebox.showerror('ERROR','All Fields Required', parent=add_window)
 
         else:
-            Query='insert into student values (%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-            mycursor.execute(Query,(nameEntry.get(),idEntry.get(),phoneEntry.get(),emailEntry.get(), addressEntry.get(), genderEntry.get(), DOBEntry.get(),ad_yearEntry.get(),pass_yearEntry.get()))
+            try:
+                Query='insert into student values (%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+                mycursor.execute(Query,(idEntry.get(),nameEntry.get(),phoneEntry.get(),emailEntry.get(), addressEntry.get(), genderEntry.get(), DOBEntry.get(),ad_yearEntry.get(),pass_yearEntry.get()))
 
-            DB_con.commit()
-            result = messagebox.askyesno('Confirm','Clear form ??')
-            if result:
-                idEntry.delete(0,END)
-                nameEntry.delete(0,END)
-                phoneEntry.delete(0,END)
-                emailEntry.delete(0,END)
-                addressEntry.delete(0,END)
-                genderEntry.delete(0,END)
-                DOBEntry.delete(0,END)
-                ad_yearEntry.delete(0,END)
-                pass_yearEntry.delete(0,END)
+                DB_con.commit()
+                result = messagebox.askyesno('Confirm','Data added successfully, Do you want to Clear the form ??')
+                if result:
+                    idEntry.delete(0,END)
+                    nameEntry.delete(0,END)
+                    phoneEntry.delete(0,END)
+                    emailEntry.delete(0,END)
+                    addressEntry.delete(0,END)
+                    genderEntry.delete(0,END)
+                    DOBEntry.delete(0,END)
+                    ad_yearEntry.delete(0,END)
+                    pass_yearEntry.delete(0,END)
+
+            except:
+                messagebox.showerror('Error','Id Cannot be repeated ')
+                return
             
+
+            query='Select *from student'
+            mycursor.execute(query)
+            fetched_data=mycursor.fetchall()
+            main_table.delete(*main_table.get_children())
+            for data in fetched_data:
+                data_list=list(data)
+                main_table.insert('',END,values = data_list)
+
 
 
 
@@ -130,17 +144,17 @@ def add_student():
     add_window.grab_set()
     add_window.resizable(0,0)
 
-    #Name
-    namelabel=Label(add_window,text='NAME',font=('times new roman',20,'bold'))
-    namelabel.grid(row= 1,column=0,padx=30,pady=15,stick=W)
-    nameEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
-    nameEntry.grid(row=1,column=1,padx=10,pady=15)
-
     #ID 
     idlabel=Label(add_window,text='ID',font=('times new roman',20,'bold'))
     idlabel.grid(row= 0,column=0,padx=30,pady=15,stick=W)
     idEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
     idEntry.grid(row=0,column=1,padx=10,pady=15)
+
+    #Name
+    namelabel=Label(add_window,text='NAME',font=('times new roman',20,'bold'))
+    namelabel.grid(row= 1,column=0,padx=30,pady=15,stick=W)
+    nameEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
+    nameEntry.grid(row=1,column=1,padx=10,pady=15)
 
     #phone
     phonelabel=Label(add_window,text='Mobile_No',font=('times new roman',20,'bold'))
@@ -187,6 +201,8 @@ def add_student():
 
     add_student_Button=ttk.Button(add_window,text='ADD STUDENT',width=30,command=add_data)
     add_student_Button.grid(row=9,columnspan=2,pady=15)
+
+
 
 
 
@@ -284,7 +300,7 @@ scrollBarY = Scrollbar(RightFrame,orient=VERTICAL)
 
 
 #MAIN TABLE AREA
-main_table = ttk.Treeview(RightFrame,columns=('Name','ID','Mobile-No','Email','Address','Gender','Date-Of-Birth','Admission Year','Passing Year'),xscrollcommand=scrollBarX.set, yscrollcommand=scrollBarY.set )
+main_table = ttk.Treeview(RightFrame,columns=('ID','Name','Mobile-No','Email','Address','Gender','Date-Of-Birth','Admission Year','Passing Year'),xscrollcommand=scrollBarX.set, yscrollcommand=scrollBarY.set )
 
 #these configure the scroll bars into the main table 
 scrollBarX.config(command=main_table.xview) 
@@ -299,8 +315,8 @@ scrollBarY.pack(side=RIGHT,fill=Y)
 main_table.pack(fill=BOTH,expand=1)       #used to place when a complexity is less either bottom,top or etc
 
 #Heading opf each columns in the main table 
-main_table.heading('Name',text='NAME')
 main_table.heading('ID',text='ID')
+main_table.heading('Name',text='NAME')
 main_table.heading('Mobile-No',text='Mobile-No')
 main_table.heading('Email',text='Email')
 main_table.heading('Address',text='Address')
