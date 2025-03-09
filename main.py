@@ -111,8 +111,19 @@ def add_student():
             mycursor.execute(Query,(nameEntry.get(),idEntry.get(),phoneEntry.get(),emailEntry.get(), addressEntry.get(), genderEntry.get(), DOBEntry.get(),ad_yearEntry.get(),pass_yearEntry.get()))
 
             DB_con.commit()
-            result = messagebox.askyesno('Clear form ??')
-            print(result)
+            result = messagebox.askyesno('Confirm','Clear form ??')
+            if result:
+                idEntry.delete(0,END)
+                nameEntry.delete(0,END)
+                phoneEntry.delete(0,END)
+                emailEntry.delete(0,END)
+                addressEntry.delete(0,END)
+                genderEntry.delete(0,END)
+                DOBEntry.delete(0,END)
+                ad_yearEntry.delete(0,END)
+                pass_yearEntry.delete(0,END)
+            
+
 
 
     add_window =Toplevel()
