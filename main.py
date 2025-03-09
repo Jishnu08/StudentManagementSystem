@@ -150,56 +150,47 @@ def add_student():
     idlabel.grid(row= 0,column=0,padx=30,pady=15,stick=W)
     idEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
     idEntry.grid(row=0,column=1,padx=10,pady=15)
-
     #Name
     namelabel=Label(add_window,text='NAME',font=('times new roman',20,'bold'))
     namelabel.grid(row= 1,column=0,padx=30,pady=15,stick=W)
     nameEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
     nameEntry.grid(row=1,column=1,padx=10,pady=15)
-
     #phone
     phonelabel=Label(add_window,text='Mobile_No',font=('times new roman',20,'bold'))
     phonelabel.grid(row= 2,column=0,padx=30,pady=15,stick=W)
     phoneEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
     phoneEntry.grid(row=2,column=1,padx=10,pady=15)
-
     #Email
     emaillabel=Label(add_window,text='EMAIL',font=('times new roman',20,'bold'))
     emaillabel.grid(row= 3,column=0,padx=30,pady=15,stick=W)
     emailEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
     emailEntry.grid(row=3,column=1,padx=10,pady=15)
-
     #address
     addresslabel=Label(add_window,text='ADDRESS',font=('times new roman',20,'bold'))
     addresslabel.grid(row= 4,column=0,padx=30,pady=15,stick=W)
     addressEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
     addressEntry.grid(row=4,column=1,padx=10,pady=15)
-
     #Gender
     genderlabel=Label(add_window,text='GENDER',font=('times new roman',20,'bold'))
     genderlabel.grid(row= 5,column=0,padx=30,pady=15,stick=W)
     genderEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
     genderEntry.grid(row=5,column=1,padx=10,pady=15)
-
     #DOB
     DOBlabel=Label(add_window,text='Date-Of-Birth',font=('times new roman',20,'bold'))
     DOBlabel.grid(row= 6,column=0,padx=30,pady=15,stick=W)
     DOBEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
     DOBEntry.grid(row=6,column=1,padx=10,pady=15)
-
     #Admission Year
     ad_yearlabel=Label(add_window,text='Admission Year',font=('times new roman',20,'bold'))
     ad_yearlabel.grid(row= 7,column=0,padx=30,pady=15,stick=W)
     ad_yearEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
     ad_yearEntry.grid(row=7,column=1,padx=10,pady=15)
-
     #Passing Year
     pass_yearlabel=Label(add_window,text='Passing Year',font=('times new roman',20,'bold'))
     pass_yearlabel.grid(row= 8,column=0,padx=30,pady=15,stick=W)
     pass_yearEntry=Entry(add_window,font=('roman',15,'bold'),width=24)
     pass_yearEntry.grid(row=8,column=1,padx=10,pady=15)
-
-
+    #ADD STUDENT BUTTON 
     add_student_Button=ttk.Button(add_window,text='ADD STUDENT',width=30,command=add_data)
     add_student_Button.grid(row=9,columnspan=2,pady=15)
 
@@ -228,17 +219,17 @@ def search_student():
     idlabel.grid(row= 0,column=0,padx=30,pady=15,stick=W)
     idEntry=Entry(search_window,font=('roman',15,'bold'),width=24)
     idEntry.grid(row=0,column=1,padx=10,pady=15)
-
     #Name
     namelabel=Label(search_window,text='NAME',font=('times new roman',20,'bold'))
     namelabel.grid(row= 1,column=0,padx=30,pady=15,stick=W)
     nameEntry=Entry(search_window,font=('roman',15,'bold'),width=24)
     nameEntry.grid(row=1,column=1,padx=10,pady=15)
-
+    #SEARCH BUTTON 
     search_student_Button=ttk.Button(search_window,text='SEARCH',width=30,command=search_data)
     search_student_Button.grid(row=9,columnspan=2,pady=15)
 
-    
+
+
 #DELETE BUTTON FUNCTIONALITY
 def delete_student():
     indexing=main_table.focus()
@@ -256,7 +247,8 @@ def delete_student():
     for data in fetched_data:
         main_table.insert('',END,values=data)
 
-    
+
+
 #SHOW STUDENT BUTTON FUNCTIONALITY
 def show_student():
     query='select *from student'
@@ -265,6 +257,7 @@ def show_student():
     main_table.delete(*main_table.get_children())
     for data in fetched_data:
         main_table.insert('',END,values=data)
+
 
 
 #UPDATE STUDENT BUTTON FUNCTIONALITY
@@ -283,62 +276,53 @@ def update_student():
     update_window.title('Update Student')
     update_window.grab_set()
     update_window.resizable(0,0)
-
     #ID 
     idlabel=Label(update_window,text='ID',font=('times new roman',20,'bold'))
     idlabel.grid(row= 0,column=0,padx=30,pady=15,stick=W)
     idEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
     idEntry.grid(row=0,column=1,padx=10,pady=15)
-
     #Name
     namelabel=Label(update_window,text='NAME',font=('times new roman',20,'bold'))
     namelabel.grid(row= 1,column=0,padx=30,pady=15,stick=W)
     nameEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
     nameEntry.grid(row=1,column=1,padx=10,pady=15)
-
     #phone
     phonelabel=Label(update_window,text='Mobile_No',font=('times new roman',20,'bold'))
     phonelabel.grid(row= 2,column=0,padx=30,pady=15,stick=W)
     phoneEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
     phoneEntry.grid(row=2,column=1,padx=10,pady=15)
-
     #Email
     emaillabel=Label(update_window,text='EMAIL',font=('times new roman',20,'bold'))
     emaillabel.grid(row= 3,column=0,padx=30,pady=15,stick=W)
     emailEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
     emailEntry.grid(row=3,column=1,padx=10,pady=15)
-
     #address
     addresslabel=Label(update_window,text='ADDRESS',font=('times new roman',20,'bold'))
     addresslabel.grid(row= 4,column=0,padx=30,pady=15,stick=W)
     addressEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
     addressEntry.grid(row=4,column=1,padx=10,pady=15)
-
     #Gender
     genderlabel=Label(update_window,text='GENDER',font=('times new roman',20,'bold'))
     genderlabel.grid(row= 5,column=0,padx=30,pady=15,stick=W)
     genderEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
     genderEntry.grid(row=5,column=1,padx=10,pady=15)
-
     #DOB
     DOBlabel=Label(update_window,text='Date-Of-Birth',font=('times new roman',20,'bold'))
     DOBlabel.grid(row= 6,column=0,padx=30,pady=15,stick=W)
     DOBEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
     DOBEntry.grid(row=6,column=1,padx=10,pady=15)
-
     #Admission Year
     ad_yearlabel=Label(update_window,text='Admission Year',font=('times new roman',20,'bold'))
     ad_yearlabel.grid(row= 7,column=0,padx=30,pady=15,stick=W)
     ad_yearEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
     ad_yearEntry.grid(row=7,column=1,padx=10,pady=15)
-
     #Passing Year
     pass_yearlabel=Label(update_window,text='Passing Year',font=('times new roman',20,'bold'))
     pass_yearlabel.grid(row= 8,column=0,padx=30,pady=15,stick=W)
     pass_yearEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
     pass_yearEntry.grid(row=8,column=1,padx=10,pady=15)
 
-
+    #UPDATE BUTTON
     update_student_Button=ttk.Button(update_window,text='UPDATE',width=30, command=update_Data)
     update_student_Button.grid(row=10,columnspan=2,pady=15)
 
