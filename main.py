@@ -48,7 +48,7 @@ def connect_database():
             mycursor.execute(Query)
             Query='use studentmanagementsystem'
             mycursor.execute(Query)
-            Query='create table student(name varchar(30),id int not null primary key, mobile varchar(10),email varchar(30),address varchar(100),gender varchar(20),dob varchar(20),admission_year varchar(10), passing_year varchar(10))'
+            Query='create table student(name varchar(30),id int not null primary key, mobile varchar(10),email varchar(30),address varchar(100),gender varchar(20),dob varchar(20),admission_year varchar(10), passing_year year)'
             mycursor.execute(Query)
         
         except:
@@ -106,13 +106,13 @@ def add_student():
         if nameEntry.get()=='' or idEntry.get()=='' or phoneEntry.get()=='' or emailEntry.get()=='' or addressEntry.get()=='' or genderEntry.get()=='' or DOBEntry.get()=='' or ad_yearEntry.get()=='' or pass_yearEntry.get=='':
             messagebox.showerror('ERROR','All Fields Required', parent=add_window)
 
-        # else:
-        #     Query='insert into student values (%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-        #     mycursor.execute(Query,(nameEntry.get(),idEntry.get(),phoneEntry.get(),emailEntry.get(), addressEntry.get(), genderEntry.get(), DOBEntry.get(),ad_yearEntry.get(),pass_yearEntry.get))
+        else:
+            Query='insert into student values (%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+            mycursor.execute(Query,(nameEntry.get(),idEntry.get(),phoneEntry.get(),emailEntry.get(), addressEntry.get(), genderEntry.get(), DOBEntry.get(),ad_yearEntry.get(),pass_yearEntry.get()))
 
-        #     DB_con.commit()
-        #     result = messagebox.askyesno('Clear form ??')
-        #     print(result)
+            DB_con.commit()
+            result = messagebox.askyesno('Clear form ??')
+            print(result)
 
 
     add_window =Toplevel()
