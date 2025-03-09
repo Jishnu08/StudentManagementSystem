@@ -238,7 +238,123 @@ def search_student():
     search_student_Button.grid(row=9,columnspan=2,pady=15)
 
     
+#DELETE BUTTON FUNCTIONALITY
+def delete_student():
+    indexing=main_table.focus()
+    print(indexing)
+    content = main_table.item(indexing)
+    contentid=content['values'][0]
+    query='delete from student where id=%s'
+    mycursor.execute(query,contentid)
+    DB_con.commit()
+    messagebox.showinfo('DELETED',f'ID:{contentid} is deleted succesfully')
+    query='select *from student'
+    mycursor.execute(query)
+    fetched_data=mycursor.fetchall()
+    main_table.delete(*main_table.get_children())
+    for data in fetched_data:
+        main_table.insert('',END,values=data)
 
+    
+#SHOW STUDENT BUTTON FUNCTIONALITY
+def show_student():
+    query='select *from student'
+    mycursor.execute(query)
+    fetched_data=mycursor.fetchall()
+    main_table.delete(*main_table.get_children())
+    for data in fetched_data:
+        main_table.insert('',END,values=data)
+
+
+#UPDATE STUDENT BUTTON FUNCTIONALITY
+def update_student():
+    def update_Data():
+        query='update student set name=%s,mobile=%s,email=%s,address=%s,gender=%s,dob=%s,admission_year=%s,passing_year=%s where id=%s'
+        mycursor.execute(query,(nameEntry.get(),phoneEntry.get(),emailEntry.get(),addressEntry.get(),genderEntry.get(),DOBEntry.get(),ad_yearEntry.get(),pass_yearEntry.get(),idEntry.get()))
+        DB_con.commit()
+        messagebox.showinfo('success',f'ID:{idEntry.get()} is modified succesfully', parent=update_window)
+        update_window.destroy()
+        show_student()
+
+
+
+    update_window =Toplevel()
+    update_window.title('Update Student')
+    update_window.grab_set()
+    update_window.resizable(0,0)
+
+    #ID 
+    idlabel=Label(update_window,text='ID',font=('times new roman',20,'bold'))
+    idlabel.grid(row= 0,column=0,padx=30,pady=15,stick=W)
+    idEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
+    idEntry.grid(row=0,column=1,padx=10,pady=15)
+
+    #Name
+    namelabel=Label(update_window,text='NAME',font=('times new roman',20,'bold'))
+    namelabel.grid(row= 1,column=0,padx=30,pady=15,stick=W)
+    nameEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
+    nameEntry.grid(row=1,column=1,padx=10,pady=15)
+
+    #phone
+    phonelabel=Label(update_window,text='Mobile_No',font=('times new roman',20,'bold'))
+    phonelabel.grid(row= 2,column=0,padx=30,pady=15,stick=W)
+    phoneEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
+    phoneEntry.grid(row=2,column=1,padx=10,pady=15)
+
+    #Email
+    emaillabel=Label(update_window,text='EMAIL',font=('times new roman',20,'bold'))
+    emaillabel.grid(row= 3,column=0,padx=30,pady=15,stick=W)
+    emailEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
+    emailEntry.grid(row=3,column=1,padx=10,pady=15)
+
+    #address
+    addresslabel=Label(update_window,text='ADDRESS',font=('times new roman',20,'bold'))
+    addresslabel.grid(row= 4,column=0,padx=30,pady=15,stick=W)
+    addressEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
+    addressEntry.grid(row=4,column=1,padx=10,pady=15)
+
+    #Gender
+    genderlabel=Label(update_window,text='GENDER',font=('times new roman',20,'bold'))
+    genderlabel.grid(row= 5,column=0,padx=30,pady=15,stick=W)
+    genderEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
+    genderEntry.grid(row=5,column=1,padx=10,pady=15)
+
+    #DOB
+    DOBlabel=Label(update_window,text='Date-Of-Birth',font=('times new roman',20,'bold'))
+    DOBlabel.grid(row= 6,column=0,padx=30,pady=15,stick=W)
+    DOBEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
+    DOBEntry.grid(row=6,column=1,padx=10,pady=15)
+
+    #Admission Year
+    ad_yearlabel=Label(update_window,text='Admission Year',font=('times new roman',20,'bold'))
+    ad_yearlabel.grid(row= 7,column=0,padx=30,pady=15,stick=W)
+    ad_yearEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
+    ad_yearEntry.grid(row=7,column=1,padx=10,pady=15)
+
+    #Passing Year
+    pass_yearlabel=Label(update_window,text='Passing Year',font=('times new roman',20,'bold'))
+    pass_yearlabel.grid(row= 8,column=0,padx=30,pady=15,stick=W)
+    pass_yearEntry=Entry(update_window,font=('roman',15,'bold'),width=24)
+    pass_yearEntry.grid(row=8,column=1,padx=10,pady=15)
+
+
+    update_student_Button=ttk.Button(update_window,text='UPDATE',width=30, command=update_Data)
+    update_student_Button.grid(row=10,columnspan=2,pady=15)
+
+
+    indexing=main_table.focus()
+    print(indexing)
+    content=main_table.item(indexing)
+    listdata=content['values']
+    idEntry.insert(0,listdata[0])
+    nameEntry.insert(0,listdata[1])
+    phoneEntry.insert(0,listdata[2])
+    emailEntry.insert(0,listdata[3])
+    addressEntry.insert(0,listdata[4])
+    genderEntry.insert(0,listdata[5])
+    DOBEntry.insert(0,listdata[6])
+    ad_yearEntry.insert(0,listdata[7])
+    pass_yearEntry.insert(0,listdata[8])
 
 
 
@@ -300,13 +416,13 @@ addstudentButton.grid(row=1,column=0,pady=20 )
 searchstudentButton = ttk.Button(leftFrame,text='Search Student', width=20,state=DISABLED,command=search_student)
 searchstudentButton.grid(row=2,column=0,pady=20 )
 #Delete Student
-delstudentButton = ttk.Button(leftFrame,text='Delete Student', width=20,state=DISABLED)
+delstudentButton = ttk.Button(leftFrame,text='Delete Student', width=20,state=DISABLED, command=delete_student)
 delstudentButton.grid(row=3,column=0,pady=20 )
 #Update Student
-updatestudentButton = ttk.Button(leftFrame,text='Update Student', width=20,state=DISABLED)
+updatestudentButton = ttk.Button(leftFrame,text='Update Student', width=20,state=DISABLED,command=update_student)
 updatestudentButton.grid(row=4,column=0,pady=20 )
 #Show Student
-showstudentButton = ttk.Button(leftFrame,text='Show Student', width=20,state=DISABLED)
+showstudentButton = ttk.Button(leftFrame,text='Show Student', width=20,state=DISABLED,command=show_student)
 showstudentButton.grid(row=5,column=0,pady=20 )
 #Export Data
 exportdataButton = ttk.Button(leftFrame,text='Export Data', width=20,state=DISABLED)
@@ -356,6 +472,21 @@ main_table.heading('Gender',text='Gender')
 main_table.heading('Date-Of-Birth',text='Date-Of-Birth')
 main_table.heading('Admission Year',text='Admission Year')
 main_table.heading('Passing Year',text='Passing Year')
+
+main_table.column('ID', width=100,anchor=CENTER)
+main_table.column('Name', width=150,anchor=CENTER)
+main_table.column('Mobile-No', width=150,anchor=CENTER)
+main_table.column('Email', width=250,anchor=CENTER)
+main_table.column('Address', width=150,anchor=CENTER)
+main_table.column('Gender', width=100,anchor=CENTER)
+main_table.column('Date-Of-Birth', width=150,anchor=CENTER)
+main_table.column('Admission Year', width=150,anchor=CENTER)
+main_table.column('Passing Year', width=150,anchor=CENTER)
+
+style=ttk.Style()
+
+style.configure('Treeview',rowheight=40, font=('arial',10,'bold'),background='light blue')
+
 
 main_table.config(show='headings')
 
